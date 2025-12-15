@@ -2,6 +2,9 @@
 
 A Flutter application demonstrating Clean Architecture, State Management, and Local Storage.
 
+![ezgif com-resize](https://github.com/user-attachments/assets/ef3143f4-2e0b-4048-8989-61e52fce87f7)
+
+
 ## Features
 
 - **Onboarding Flow**: Smooth onboarding experience for new users.
