@@ -5,6 +5,7 @@ import 'package:tz/presentation/pages/paywall/controller/paywall_cubit.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'data/repository/hive_local_storage_repository.dart';
+import 'core/constants/route_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,29 +13,33 @@ void main() async {
 
   // Initialize Repository
   final localRepo = HiveLocalStorageRepository();
-
-  // TODO add getit service locator (if we had more than one repository)
   await localRepo.init();
 
-  // TODO Implement Logger later (talker or any, but unecesary fr now)
-  runApp(MainApp(localRepo: localRepo));
+  final subscription = await localRepo.getSubscription();
+  final initialLocation = subscription != null ? RouteConstants.home : RouteConstants.onboarding;
+
+  runApp(MainApp(localRepo: localRepo, initialLocation: initialLocation));
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key, required this.localRepo});
+  const MainApp({
+    super.key,
+    required this.localRepo,
+    required this.initialLocation,
+  });
 
   final HiveLocalStorageRepository localRepo;
+  final String initialLocation;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          PaywallCubit(localStorageRepository: localRepo)..checkSubscription(),
+      create: (context) => PaywallCubit(localStorageRepository: localRepo),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: AppTheme.lightTheme,
-        routerConfig: AppRouter.router,
+        routerConfig: AppRouter.createRouter(initialLocation),
       ),
     );
   }

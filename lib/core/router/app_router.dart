@@ -4,8 +4,8 @@ import 'package:tz/presentation/pages/onboarding/onboarding_page.dart';
 import 'package:tz/presentation/pages/paywall/paywall_page.dart';
 import '../constants/route_constants.dart';
 
-class AppRouter {
-  static GoRouter router(String initialLocation) => GoRouter(
+  class AppRouter {
+  static GoRouter createRouter(String initialLocation) => GoRouter(
     initialLocation: initialLocation,
     routes: [
       GoRoute(

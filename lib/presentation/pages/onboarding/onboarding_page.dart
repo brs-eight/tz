@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tz/presentation/pages/paywall/controller/paywall_cubit.dart';
 import '../../../core/constants/route_constants.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -9,14 +7,7 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PaywallCubit, PaywallState>(
-      listener: (context, state) {
-        // TODO i dont like it
-        if (state is PaywallBuyed) {
-          context.go(RouteConstants.home);
-        }
-      },
-      child: Scaffold(
+    return Scaffold(
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -56,7 +47,6 @@ class OnboardingPage extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
